@@ -18,7 +18,7 @@ preflightContinue:true
 )
 
 app.listen(port, () => {
-console.log(Example app listening on port ${port})
+console.log(`Example app listening on port ${port}`);
 })
 
 app.post('/login',async (req, res)=>{
