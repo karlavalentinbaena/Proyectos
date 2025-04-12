@@ -1,31 +1,33 @@
-const express = require("express");
-const cors = require("cors");
-const ConectarMongoDb= require("./bd");
+import { MongoDbConnection } from './bd.js';
+import express, { json } from 'express'
+import cors from 'cors'
+const app = express()
+const port = 3000
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+app.use(express.urlencoded({extended:true}))
 
-// Conexión con  base de datos
-const db = new ConectarMongoDb("nosql", "usuarios");
+app.use(express.json())
 
-app.post("/login", async (req, res) => {
-    await db.connect();
-    const usuarios = await db.col.find().toArray();
-    console.log("Usuarios en la BD:", usuarios);
-   // const { usuario, contrasena } = req.body;
-    //console.log("Consulta recibida en el servidor:", { usuario, contrasena });
+app.use(
+cors (
+{
+'origin': ['http://127.0.0.1:5500', 'http://localhost:5500', 'http://127.0.0.1:3000', 'http://localhost:3000'],
+preflightContinue:true
+}
+)
+)
 
-    const user = await db.findOne({ usuario, contrasena });
+app.listen(port, () => {
+console.log(Example app listening on port ${port})
+})
 
-    if (user) {
-        res.send("Registro correcto");
-    } else {
-        res.send("Las credenciales están mal.");
-    }
-});
+app.post('/login',async (req, res)=>{
+console.log(req.body)
 
+const conn_db = await new MongoDbConnection('test', 'users')
+let data = await conn_db.find_one({email:req.body.user, password:req.body.password})
 
-app.listen(3000, () => {
-    console.log("El servidor esta funcionando en el puerto 3000");
-});
+console.log(data)
+res.setHeader('Content-Type', 'application/json');
+    return res.json({message: 'información encontrada', mdb_data:data})
+    })
