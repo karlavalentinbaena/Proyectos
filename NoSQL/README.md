@@ -1,9 +1,22 @@
 # NoSQL Injection
 
-Aplicación para simular la vulnerabilidad NoSQL, se utilizó MongoDB, express, thunder client.
+Aplicación para simular la vulnerabilidad NoSQL vista en clase. 
+1. Para hacer este ejercicio se utilizó  Node.js y Express con MongoDB para el backend.
+2. En el caso del frontend se utilizó JavaScript y HTML. 
 
-1. Se debe de descargar Node.js y todos los archivos que aparecen aquí (index.html, app.js, bd.js y server.js) al igual que vsc.
-2. Después, desde la terminal instalar mongodb, express por si aun no se tiene. En la terminal, se debe de abrir la ubicación en donde están estos archivos y abrir con cd la carpeta de 'back' ahí se le tiene que poner npm init -y para que cree los archivos de package.json.
-3. Con los comandos de npm install mongodb y luego npm install express para instalar todo esto que se requiere. 
-4. Seguido de eso, se abre vsc y desde ahí se puede abrir la carpeta que tiene todos los archivos .js y .html, se abre la consola desde la parte de arriba en la sección de 'view' y luego en 'terminal'. Ahí se tiene que estar en la carpeta  'back', sino estamos ahí, poniendo: cd back nos localizamos y luego escribimos node server.js y aparecerá un mensaje "el servidor esta funcionando en el puerto 3000".
-5. Luego de eso, le podemos dar clic al archivo index.html para ir al formulario, podemos ingresar cualquier usuario y contraseña y va a aparecer un mensaje diciendo que "las credenciales no son validas", pero si queremos hacer una vulneración, podemos ir a visual con la extensión de thunder client la descargamos en vsc y después le damos en "new request", después en en vez de get lo cambiamos por POST y pegamos la url del dervidor que es: http://localhost:3000/login le damos en send y nos va a aparecer como un error porque esas credenciales no son validas, entonces lo que podemos hacer es poner en la seccion de 'body' y json: {"usuario": { "$ne": null }, "contrasena": { "$ne": null }} y lo que mostrará será que ahora las credenciales son validas porque es una vulnerabilidad. 
+### Para que la aplicación funcione es necesario: 
+1. Clonar el repositorio poniendo: git clone UrlDelRepositorio.
+2. Tener instalado Node y un software que permita correr la app, en este caso yo usé Visual Studio.
+3. Abrir el proyecto: cd NombreDelRepositorio.
+4. instalar las dependencias: npm install.
+
+### Para probarla: 
+1. Abrir la ruta de donde se guardó el archivo server.js: cd RutaServer.js
+2. Para que el servidor y la base funcione se debe poner: node server.js
+3. Se debe de abrir el archivo de index.html en algun navegador.
+4. Se puede hacer un registro con un usuario y contraseña que se escojan.
+5. Despues, abajo aparece un formulario para poder inicsiar sesión con los datos qye ya se registraron.
+6. Para probar el nosql injection, se puede poner en usuario y contraseña:
+   1.  {"$ne": null}
+   2.  {"$gt": ""}
+Fueron los que probé y funcionó, porque debe de aparecer un mensaje como de resgitro correcto. 
