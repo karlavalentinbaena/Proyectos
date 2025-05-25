@@ -2,12 +2,12 @@ async function login() {
     let usuario = document.getElementById("usuario").value;
     let contrasena = document.getElementById("contrasena").value;
 
-    // Intenta interpretar los campos como JSON
+    // para que se interprete el usuario y contraseña como json
     try {
         usuario = JSON.parse(usuario);
         contrasena = JSON.parse(contrasena);
     } catch (e) {
-        // Si no es JSON válido, se mantiene como string normal
+        //y sino, se queda como un string 
     }
 
     const res = await fetch("http://localhost:3000/login", {
