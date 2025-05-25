@@ -17,6 +17,12 @@ Aplicación para simular la vulnerabilidad NoSQL vista en clase.
 4. Se puede hacer un registro con un usuario y contraseña que se escojan.
 5. Despues, abajo aparece un formulario para poder inicsiar sesión con los datos qye ya se registraron.
 6. Para probar el nosql injection, se puede poner en usuario y contraseña:
-   1.  {"$ne": null}
-   2.  {"$gt": ""}
-Fueron los que probé y funcionó, porque debe de aparecer un mensaje como de resgitro correcto. 
+   1.    {"$ne": null}
+   2.    {"$gt": ""}
+
+Fueron los que probé y funcionó, porque debe de aparecer un mensaje como de resgitro correcto.
+Si se le ponen otros datos que no estan registrados, aparece el error como se ve en la imagen. 
+
+![Imagen noSQL2](https://github.com/user-attachments/assets/a95e7610-6be0-4dde-8e4c-450b661c5bff)
+![Imagen noSQL Injection](https://github.com/user-attachments/assets/880fb5bb-7815-4648-a7ca-4147f4a0631a)
+![prueba error](https://github.com/user-attachments/assets/052b691c-1e4c-41e3-9974-c5775208a1bb)
