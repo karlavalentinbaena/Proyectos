@@ -4,17 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NoSQL injection</title>
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="estilos.css"> 
 </head>
 <body>
     <div class="container">
+  
+    <h2>Registrarse</h2>
+    <input type="text" id="nuevoUsuario" placeholder="Nuevo usuario" />
+    <input type="password" id="nuevaContrasena" placeholder="Nueva contraseña" />
+    <button onclick="registrarse()">Registrar</button>
+    <p id="respuestaRegistro" class="mensaje"></p>
+    
+    <hr />
+
     <h2>Iniciar sesión</h2>
     <input type="text" id="usuario" placeholder="Usuario">
     <input type="password" id="contrasena" placeholder="Contraseña">
     <button onclick="login()">Ingresar</button>
-    <p id="respuesta"></p>
+    <p id="respuesta" class="mensaje"></p>
     </div>
     <script src="app.js"></script>
 </body>
 </html>
+
+
+
 
