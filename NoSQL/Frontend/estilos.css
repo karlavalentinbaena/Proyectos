@@ -41,4 +41,19 @@ body {
     margin-top: 15px;
     color: #444;
   }
+
+  .mensaje {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.mensaje.exito {
+    color: #9933ff;
+}
+
+.mensaje.error {
+    color: #ff3333;
+}
+
+  
   
