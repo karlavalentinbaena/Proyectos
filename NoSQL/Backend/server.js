@@ -6,9 +6,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Conexión con la  base de datos, (nombre y coleccion)
+// // Conexión con la  base de datos, (nombre y coleccion)
 const db = new ConectarMongoDb("nosql", "usuarios");
 
+//para iniciar sesion 
 app.post("/login", async (req, res) => {
     await db.connect();
     const { usuario, contrasena } = req.body;
@@ -16,28 +17,42 @@ app.post("/login", async (req, res) => {
     const user = await db.findOne({ usuario: usuario, contrasena: contrasena });
 
     if (user) {
-        res.send("Registro correcto");
+        res.send("Sesion iniciada correctamente.");
     } else {
-        res.send("Los datos están incorrectos.");
+        res.send("Los datos están mal.");
     }
 });
+//para registrar 
+app.post("/registro", async (req, res) => {
+    const { usuario, contrasena } = req.body;
 
-//Probar crear un usuario y contraseña 
-/* app.get("/insertar", async (req, res) => {
+    if (!usuario || !contrasena) {
+        return res.status(400).send("Faltan datos.");
+    }
     try {
         await db.connect();
-        await db.col.insertOne({ usuario: "karla", contrasena: "Prueba1997$" });
-        res.send("Usuario de prueba insertado.");
+        const existe = await db.col.findOne({ usuario });
+
+        if (existe) {
+            return res.status(409).send("El usuario ya existe.");
+        }
+
+        await db.col.insertOne({ usuario, contrasena });
+        res.send("Registro exitoso.");
     } catch (error) {
-        console.error("Error al insertar:", error);
-        res.status(500).send("Error al insertar.");
+        console.error("Error al registrar:", error);
+        res.status(500).send("Error del servidor.");
     }
 });
-*/
 
 app.listen(3000, () => {
-    console.log("El servidor esta funcionando en el puerto 3000");
+    console.log("El servidor funciona en el puerto 3000");
 });
+
+
+
+
+
 
 
 
