@@ -1,33 +1,59 @@
-const express = require('express');
-const cors = require('cors');
-const ConectarMongoDb = require('./bd.js');
+const express = require("express");
+const cors = require("cors");
+const ConectarMongoDb= require("./bd");
 
 const app = express();
-const port = 3000;
-
-app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 app.use(express.json());
 
-app.use(cors({
-  origin: ['http://127.0.0.1:5500', 'http://localhost:5500', 'http://127.0.0.1:3000', 'http://localhost:3000'],
-  preflightContinue: true
-}));
+// Conexión con  base de datos
+const db = new ConectarMongoDb("nosql", "usuarios");
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.post("/login", async (req, res) => {
+    await db.connect();
+    const { usuario, contrasena } = req.body;
+
+    // vulnerabilidad no sql
+    const user = await db.findOne({ usuario: usuario, contrasena: contrasena });
+
+    if (user) {
+        res.send("Registro correcto");
+    } else {
+        res.send("Los datos están incorrectos.");
+    }
 });
 
-app.post('/login', async (req, res) => {
-  console.log(req.body);
-
-  const conn_db = new ConectarMongoDb('test', 'users');
-  await conn_db.connect();
-
-  let data = await conn_db.findOne({ email: req.body.user, password: req.body.password });
-
-  console.log(data);
-
-  res.setHeader('Content-Type', 'application/json');
-  return res.json({ message: 'la informacion es', mdb_data: data });
+app.get("/insertar", async (req, res) => {
+    try {
+        await db.connect();
+        await db.col.insertOne({ usuario: "karla", contrasena: "Prueba1997$" });
+        res.send("Usuario de prueba insertado.");
+    } catch (error) {
+        console.error("Error al insertar:", error);
+        res.status(500).send("Error al insertar.");
+    }
 });
+
+app.get("/test", async (req, res) => {
+    try {
+        await db.connect();
+        const docs = await db.col.find({}).limit(5).toArray();
+        res.json(docs);
+    } catch (error) {
+        console.error("Error al consultar:", error);
+        res.status(500).send("Error al conectar o leer la colección");
+    }
+});
+
+app.listen(3000, () => {
+    console.log("El servidor esta funcionando en el puerto 3000");
+});
+
+
+
+
+
+
+
+
 
