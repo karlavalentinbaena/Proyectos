@@ -1,6 +1,6 @@
 const { MongoClient } = require("mongodb");
 
-//Iniciar la clase para conectar a MongoDB
+//Iniciar la clase para conectar a Mongo
 class ConectarMongoDb {
     constructor(db, collection) {
         //el usuario y contraseña que se pidió con la url para conectar a mongo
@@ -17,7 +17,7 @@ class ConectarMongoDb {
             this.col = this.basedatos.collection(this.collection);
             console.log("Conexión a mongo bien");
     }catch (error) {
-        console.error("Error en la conexion de mongo:", error);
+        console.error("conexion de mongo mal:", error);
     }
 }    
     async findOne(query) {
