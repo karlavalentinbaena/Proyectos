@@ -2,6 +2,10 @@
 
 Este es un sistema en donde se implementan diferentes funciones, para simular los contagios de un grupo de personas.
 
+### Instalaciones necesarias:
+- Pov ray
+- software para compilar archivos python
+
 1. El programa genera archivos pov ray, uno por cada simulación.
 2. Se crea y se puede ver la animación de cómo va evolucionando los contagios con el paso de los días.
 3. Al igual, se genera una gráfica con los datos que se obtuvieron.
